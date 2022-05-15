@@ -23,7 +23,7 @@ public class BoardController {
 		List<BoardDto> list = boardService.selectBoardList();
 		mv.addObject("list", list);
 		
-		return mv;
+		return mv; 
 		
 	}
 }
