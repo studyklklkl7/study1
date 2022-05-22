@@ -23,4 +23,4 @@ class BoardApplicationTests {
 		System.out.println(sqlSession.toString());
 	}
 
-}
+} 
