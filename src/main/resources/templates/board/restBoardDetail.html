@@ -42,11 +42,14 @@
 				</tbody>
 			</table>
 			<input type="hidden" id="boardIdx" name="boardIdx" th:value="${board.boardIdx }">
+			<!-- 여기 -->
+			<input type="hidden" id="method" name="_method"/>
 		</form>
 		
 		<div class="file_list">
-			<a th:each="list : ${board.fileList}" th:href="@{/board/downloadBoardFile.do(idx=${list.idx}, boardIdx=${list.boardIdx})}" th:text="|${list.originalFileName} (${list.fileSize} kb)|"></a>
-		</div> 
+			<!-- 여기 -->
+			<a th:each="list : ${board.fileList}" th:href="@{/board/file(idx=${list.idx}, boardIdx=${list.boardIdx})}" th:text="|${list.originalFileName} (${list.fileSize} kb)|"></a>
+		</div>
 		
 		<a href="#this" id="list" class="btn">목록으로</a>
 		<a href="#this" id="edit" class="btn">수정하기</a>
@@ -56,19 +59,29 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
+			/* 여기 */
+			var boardIdx = $("#boardIdx").val();
+			
 			$("#list").on("click", function(){
-				location.href = "/board/openBoardList.do";
+				/* 여기 */
+				location.href = "/board/";
 			});
 			
 			$("#edit").on("click", function(){
+				/* 여기 */
+				$("#method").val("put");
+				
 				var frm = $("#frm")[0];
-				frm.action = "/board/updateBoard.do";
+				frm.action = "/board/"+boardIdx;
 				frm.submit();
 			});
 			
 			$("#delete").on("click", function(){
+				/* 여기 */
+				$("#method").val("delete");
+				
 				var frm = $("#frm")[0];
-				frm.action = "/board/deleteBoard.do";
+				frm.action = "/board/"+boardIdx;
 				frm.submit();
 			});
 		});

@@ -10,6 +10,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -18,6 +20,7 @@ import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
 @PropertySource("classpath:/application.properties")
+//@EnableTransactionManagement
 public class DatabaseConfiguration {
 	@Autowired
 	private ApplicationContext applicationContext;
@@ -31,7 +34,7 @@ public class DatabaseConfiguration {
 	@Bean
 	public DataSource dataSource()throws Exception{
 		DataSource dataSource = new HikariDataSource(hikariConfig());
-		//System.out.println("11111 ====="+dataSource.toString());
+		System.out.println("11111 ====="+dataSource.toString());
 		return dataSource;
 	}
 	
@@ -56,6 +59,11 @@ public class DatabaseConfiguration {
 	public org.apache.ibatis.session.Configuration mybatisConfig() {
 		return new org.apache.ibatis.session.Configuration();
 	}
+	
+	/*
+	 * @Bean public PlatformTransactionManager transactionManager() throws
+	 * Exception{ return new DataSourceTransactionManger(dataSource()); }
+	 */
 }
 
 
