@@ -1,4 +1,6 @@
 package board.configuration;
+import java.util.Properties;
+
 import javax.sql.DataSource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -36,6 +38,12 @@ public class DatabaseConfiguration {
 		DataSource dataSource = new HikariDataSource(hikariConfig());
 		System.out.println("11111 ====="+dataSource.toString());
 		return dataSource;
+	}
+	
+	@Bean
+	@ConfigurationProperties(prefix="spring.jpa")
+	public Properties hibernateConfig(){
+		return new Properties();
 	}
 	
 	
