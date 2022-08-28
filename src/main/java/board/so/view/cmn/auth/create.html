@@ -1,0 +1,60 @@
+{{>common/layout/header}}
+
+<div class="TM_layout">
+    <div class="TM_contents">
+    	<!-- form start -->
+		<form name="frm" method="post" action="">
+		<input type="hidden" name="page" value="{{#authCnd.page}}{{authCnd.page}}{{/authCnd.page}}">
+		<input type="hidden" name="srchStateCd" value="{{#authCnd.srchStateCd}}{{authCnd.srchStateCd}}{{/authCnd.srchStateCd}}">
+		<input type="hidden" name="srchAuthName" value="{{#authCnd.srchAuthName}}{{authCnd.srchAuthName}}{{/authCnd.srchAuthName}}">
+		<h6><i class="bi bi-diamond-fill"></i> 권한 추가 <alert_note>(* 표시는 필수항목입니다.)</alert_note></h6>
+      <table class="table table-bordered caption-top">
+        <caption>테이블: 권한추가 등록</caption>
+        <tbody>
+          <tr>
+            <th scope="row" class="table-primary" style="width:150px;">권한 명<alert_note>*</alert_note></th>
+            <td><input class="form-control" type="text" name="authName" placeholder="" aria-label="권한 명"></td>
+          </tr>
+          <tr>
+            <th scope="row" class="table-primary" style="width:150px;">설명</th>
+            <td><input class="form-control" type="text" name="descript" placeholder="" aria-label="권한 설명"></td>
+          </tr>
+          <tr>
+            <th scope="row" class="table-primary" style="width:150px;">사용 여부<alert_note>*</alert_note></th>
+            <td>
+              <select name="stateCd" aria-controls="DataTables_Table_0" class="form-control form-control-sm">
+                <option value="">선택</option>
+                <option value="1">사용</option>
+                <option value="2">미사용</option>
+              </select>                 
+            </td>
+          </tr>
+        </tbody>
+      </table>         
+
+      <div class="table_bottom">        
+        <div class="btn_area left">
+          <button type="button" class="btn btn-secondary list" style="float: right; margin-bottom: 5px;">목록</button>
+        </div> 
+        <div class="btn_area right">
+          <!-- <button type="button" class="btn btn-primary save">등록</button> -->
+          <button type="button" class="btn btn-secondary save" style="float: right; margin-bottom: 5px;">등록</button>
+        </div> 
+      </div>
+	</form>
+	<!-- form end -->
+    </div><!--/TM_contents-->
+</div><!--/TM_layout-->
+
+{{>common/layout/footer}}
+	
+<!-- page javascript list -->
+<!-- <script src="/js/app/page/page.js"></script> -->
+<script src="/js/common/basic/validate.js"></script>
+<script type="text/javascript">
+	let pageNm = "create";
+	let procUrl = "/view/cmn/auth/create-ajax";
+	let type = "POST";
+	let txt = "등록";
+</script>
+<script src="/js/app/cmn/auth/auth.js"></script>

@@ -1,0 +1,99 @@
+{{>common/layout/header}}
+
+<div class="TM_layout">
+    <div class="TM_contents">
+    	<!-- form start -->
+		<form name="frm" method="post" action="">
+		<input type="hidden" name="page" value="{{#authCnd.page}}{{authCnd.page}}{{/authCnd.page}}" />
+		<input type="hidden" name="pageSize" value="2" />
+		<input type="hidden" name="authCd" value="" />
+		<h6><i class="bi bi-diamond-fill"></i> 권한관리 조회</h6>
+      	<table class="table table-bordered caption-top">
+        	<caption>테이블: 권한관리 조회</caption>
+        	<tbody>
+          	<tr>
+            	<th scope="row" class="table-primary" style="width:150px;">권한 명</th>
+            	<td><input class="form-control" type="text" name="srchAuthName" value="{{#authCnd.srchAuthName}}{{authCnd.srchAuthName}}{{/authCnd.srchAuthName}}" placeholder="" aria-label="권한 명"></td>
+            	<th scope="row" class="table-primary" style="width:150px;">상태</th>
+            	<td>
+              		<select name="srchStateCd" class="form-select" aria-label="상태">
+                		<option value="">선택</option>
+                		{{#codeList}}
+                		<option value="{{code}}">{{codeName}}</option>
+                		{{/codeList}}
+              		</select>                 
+            	</td>
+          	</tr>
+        	</tbody>
+      	</table>         
+
+      <div class="table_bottom">        
+        <div class="btn_area right">
+          <button type="button" class="btn btn-secondary srch_go" style="float: right; margin-bottom: 5px;">조회하기</button>
+        </div> 
+      </div>
+<br>      
+
+      <!-- // 조회 결과 리스트 -->
+      <h6><i class="bi bi-diamond-fill tit_ico" style="font-size:11px;vertical-align:top;display:inline-block;padding-top:3px;"></i> 권한관리 리스트</h6>
+      <table class="table table-bordered table-striped table-hover caption-top">
+        <caption>테이블: 사용자관리 조회 결과 ()</caption>
+        <thead>
+          <tr class="table-primary">
+            <th scope="col" style="width:50px;">번호</th>
+            <th scope="col">코드</th>
+            <th scope="col">권한이름</th>
+            <th scope="col">설명</th>
+            <th scope="col">상태</th>
+            <th scope="col">등록자ID</th>
+            <th scope="col">등록자명</th>
+            <th scope="col">등록일시</th>
+          </tr>
+        </thead>
+        <tbody>
+			{{^codePg.pageImpl.empty}}
+        	{{#codePg.pageImpl.content}}	
+			<tr class="view" data-no="{{authCd}}">
+	            <th scope="row">{{index}}</th>
+	            <td>{{#authCd}}{{authCd}}{{/authCd}}</td>
+	            <td>{{#authName}}{{authName}}{{/authName}}</td>
+	            <td>
+	            {{#descript}}
+				   {{descript}}
+				{{/descript}}
+				{{^descript}}
+				{{/descript}}
+	            </td>
+	            <td>{{#stateCd}}{{stateCd}}{{/stateCd}}</td>
+	            <td>{{#regMgrId}}{{regMgrId}}{{/regMgrId}}</td>
+	            <td>{{#regMgrName}}{{regMgrName}}{{/regMgrName}}</td>
+	            <td>{{#regDate}}{{regDate}}{{/regDate}}</td>
+			</tr>
+			{{/codePg.pageImpl.content}}
+          	{{/codePg.pageImpl.empty}}
+			
+			{{#codePg.pageImpl.empty}}
+			<tr><td colspan="7">검색 결과가 없습니다.</td></tr>
+			{{/codePg.pageImpl.empty}}
+        </tbody>
+      </table>         
+	<div class="table_bottom">
+		{{&codePg.pagingHtml}}
+		<div class="btn_area right">
+          <button type="button" class="btn btn-secondary create_go" style="float: right; margin-bottom: 5px;">등록하기</button>
+        </div>
+	</div>
+	</form>
+	<!-- form end -->
+    </div><!--/TM_contents-->
+</div><!--/TM_layout-->
+
+{{>common/layout/footer}}
+	
+<!-- page javascript list -->
+<!-- <script src="/js/app/page/page.js"></script> -->
+<script type="text/javascript">
+	let selVal ='{{#authCnd.srchStateCd}}{{authCnd.srchStateCd}}{{/authCnd.srchStateCd}}';
+	let pageNm = "list";
+</script>
+<script src="/js/app/cmn/auth/auth.js"></script>
