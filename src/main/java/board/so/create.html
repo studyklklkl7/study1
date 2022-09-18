@@ -1,0 +1,539 @@
+{{>common/layout/ext/head}}
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div class="WM_wrapper">
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body WM_cnt ver_pop">
+			<!-- form start -->
+			<form name="frm" method="post" action="">
+			<input type="text" name="pdtUnitPrice" value="" />	<!-- 상품금액 -->
+			<input type="text" name="monthPayAmount" value="" /> <!-- 상품월납입액 월납일 경우에만 등록 필요--> 
+			<input type="text" name="orginPayTimes" value="" />	<!-- 상품납입횟수 -->
+            <div class="container-fluid">
+                <h3>계약등록</h3>
+
+                <h6><i class="icon-tag"></i> 계약자 정보 <alert_note>(* 필수입력)</alert_note></h6>
+                <table class="table">
+                    <colgroup>
+                        <col width="15%">
+                        <col width="35%">
+                        <col width="15%">
+                        <col width="35%">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <th scope="row" class="table-primary"> <alert_note>*</alert_note>계약자명</th>
+                            <td colspan="3"><input class="form-control ib_w250" name="custNm" maxlength="25" type="text" placeholder="" /></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="table-primary"> <alert_note>*</alert_note>계약자 휴대폰</th>
+                            <td>
+                                <select name="mpFront" class="form-control ib_w100">
+                                  	<option value="">선택</option>
+									{{#mpList}}
+										<option value="{{codeName}}"  >{{codeName}}</option>
+									{{/mpList}}
+                                </select>     
+                                <input class="form-control ib_w250" name="mpNo" vldt_num  type="text" maxlength="8" placeholder="-없이 입력" >
+                            </td>
+                            <th scope="row" class="table-primary"><alert_note>*</alert_note>계약자 생년월일/성별</th>
+                            <td>
+                                <input class="form-control ib_w250" name="birthDate" vldt_num type="text" maxlength="8" placeholder="" > 
+                                <span class="pl_20">
+                                    <label class="radio-inline mr-3"><input type="radio" name="sex" value="1" /> 남</label>
+                                    <label class="radio-inline mr-3"><input type="radio" name="sex" value="2" /> 여</label>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="table-primary"> <alert_note>*</alert_note>우편물 수령처</th>
+                            <td colspan="3">
+                                <span class="pr_20">
+                                    <label class="radio-inline mr-3"><input type="radio" name="prAreaTypeCd" value="1" /> 모바일(웹)</label>
+                                    <label class="radio-inline mr-3"><input type="radio" name="prAreaTypeCd" value="2" /> 이메일</label>
+                                    <label class="radio-inline mr-3"><input type="radio" name="prAreaTypeCd" value="3" disabled="disabled" /> 자택(택배)</label>
+                                </span>   
+                                <i class="nt">(증서 수령 방법에 대해 선택할 수 있습니다.)</i>                             
+                            </td>
+                        </tr>  
+                        <tr>
+                            <th scope="row" class="table-primary">이메일</th>
+                            <td colspan="3"><input class="form-control ib_w250" name="email" maxlength="60" type="text" placeholder="ex) hong@naver.com" /></td>
+                        </tr>
+                     
+                        <tr>
+                            <th scope="row" rowspan="3" class="table-primary"> 주소</th>
+                            <td colspan="3">
+                                <input class="form-control ib_w150" name="zipCode" id="zipCode" type="text" placeholder="우편번호" readonly="readonly" disabled="disabled" >
+                                <button type="button"  class="btn mb-1 btn-outline-primary btn-sm">우편번호</button> <!--id="zipCodeBtn" 우편물 수령처 자택 선택 불가로 일단 id값 빼놨음  -->
+                            </td>
+                        </tr>                        
+                        <tr>
+                            <td colspan="3">
+                                <input class="form-control" type="text" name="addr" id="addr" readonly="readonly" placeholder="주소" disabled="disabled">
+                            </td>
+                        </tr>                        
+                        <tr>
+                            <td colspan="3">
+                                <input class="form-control" type="text" name="addrDetail" id="addrDetail" maxlength="100" placeholder="상세주소" disabled="disabled" >
+                            </td>
+                        </tr>   
+                        <tr>
+                            <th scope="row" class="table-primary"> 전화</th>
+                            <td colspan="3">
+                                <select name="ctelFront" class="form-control ib_w100" disabled="disabled">
+                                    {{#telList}}
+										<option value="{{codeName}}">{{codeName}}</option>
+									{{/telList}}
+                                </select>     
+                                <input class="form-control ib_w250" name="contactTelNo" maxlength="15" vldt_num type="text" placeholder="-없이 입력" disabled="disabled">
+                            </td>                            
+                        </tr>                     
+                        <tr>
+                            <th scope="row" colspan="4"> <strong style="color:#000;font-size:13px;"><i class="icon-note"></i> 개인정보 활용동의</strong></th>
+                        </tr>      
+                        <tr>
+                            <th scope="row" class="table-primary"> 필수적 수집, 이용</th>
+                            <td colspan="3">
+                                <span class="pr_20">
+                                    <label class="radio-inline mr-3"><input type="radio" name="agree_type_cd_1" value="1" /> 동의</label>
+                                    <label class="radio-inline mr-3"><input type="radio" name="agree_type_cd_1" value="2" /> 동의안함</label>
+                                </span>   
+                                <!-- <span>처리일시: </span> -->                           
+                            </td>
+                        </tr>                                         
+                        <tr>
+                            <th scope="row" class="table-primary"> 필수적 제공</th>
+                            <td colspan="3">
+                                <span class="pr_20">
+                                    <label class="radio-inline mr-3"><input type="radio" name="agree_type_cd_2" value="3" /> 동의</label>
+                                    <label class="radio-inline mr-3"><input type="radio" name="agree_type_cd_2" value="4" /> 동의안함</label>
+                                </span>   
+                                <!-- <span>처리일시: </span>   -->                         
+                            </td>
+                        </tr>                                         
+                        <tr>
+                            <th scope="row" class="table-primary"> 선택적 수집, 이용</th>
+                            <td colspan="3">
+                                <span class="pr_20">
+                                    <label class="radio-inline mr-3"><input type="radio" name="agree_type_cd_3" value="1" /> 동의</label>
+                                    <label class="radio-inline mr-3"><input type="radio" name="agree_type_cd_3" value="2" /> 동의안함</label>
+                                </span>   
+                                <!-- <span>처리일시: </span> -->    
+                                <div class="pt_10 d_block">
+                                    <div class="form-check form-check-inline">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="agree_type_cd_4" class="form-check-input" value="5">전화</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="agree_type_cd_4" class="form-check-input" value="6">문자</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="agree_type_cd_4" class="form-check-input" value="7">이메일</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="agree_type_cd_4" class="form-check-input" value="8">서면</label>
+                                    </div>
+                                </div>                    
+                            </td>
+                        </tr>    
+                        <tr>
+                            <th scope="row" class="table-primary"> 선택적 제공</th>
+                            <td colspan="3">
+                                <span class="pr_20">
+                                    <label class="radio-inline mr-3"><input type="radio" name="agree_type_cd_5" value="9" /> 동의</label>
+                                    <label class="radio-inline mr-3"><input type="radio" name="agree_type_cd_5" value="10" /> 동의안함</label>
+                                </span>   
+                                <!-- <span>처리일시: </span> -->                           
+                            </td>
+                        </tr>                                                                 
+                    </tbody>
+                </table>         
+
+
+                <h6><i class="icon-tag"></i> 계약 내용 <alert_note>(* 필수입력)</alert_note></h6>
+                <table class="table">
+                    <colgroup>
+                        <col width="15%">
+                        <col width="35%">
+                        <col width="15%">
+                        <col width="35%">
+                    </colgroup>
+                    <tbody>
+                        <!-- 기본정보 -->
+                        <tr>
+                            <th scope="row" colspan="4"> <strong style="color:#000;font-size:13px;"><i class="icon-info"></i> 기본정보</strong></th>
+                        </tr>                           
+                        <tr>
+                            <th scope="row" class="table-primary"> 증서번호</th>
+                            <td><input class="form-control ib_w250" type="text" placeholder="" disabled="disabled" /></td>
+                            <th scope="row" class="table-primary"> 대리점 주문번호</th>
+                            {{^agentOrdNo.empty}}
+                            	 <td><input class="form-control ib_w250" type="text" name="agentOrdNo" value="{{agentOrdNo}}" placeholder="" readonly="readonly" /></td>
+                            {{/agentOrdNo.empty}}
+                            {{#agentOrdNo.empty}}
+                            	 <td><input class="form-control ib_w250" type="text" name="" value="" placeholder="" /></td>
+                            {{/agentOrdNo.empty}}                         
+                        </tr>
+                        <tr>
+                            <th scope="row" class="table-primary"> <alert_note>*</alert_note>채널경로</th>
+                            <td colspan="3">
+                                <select name="channelCd" class="form-control ib_w250">
+                                    <option value="">선택</option>
+                                    {{#channelList}}
+										<option value="{{channelCd}}">{{channelNm}}</option>
+									{{/channelList}}
+                                </select>  
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="table-primary"> <alert_note>*</alert_note>모집자</th>
+                            <td>
+                                <select name="recruitMgrCd" id="recruitMgrCd" class="form-control ib_w250">
+                                    <option value="">선택</option>
+                                    {{#channelMgrList}}
+										<option value="{{recruitMgrCd}}">{{recruitMgrNm}}</option>
+									{{/channelMgrList}}
+                                </select>  
+                            </td>
+                            <th scope="row" class="table-primary"> <alert_note>*</alert_note>모집코드</th>
+                            <td><input class="form-control ib_w250" name="" value="{{#channelKey}}{{channelKey}}{{/channelKey}} ({{#recruitMgrCd}}{{recruitMgrCd}}{{/recruitMgrCd}})" type="text" placeholder="" /></td>                          
+                        </tr>
+
+                        <!-- 상품 및 납입 정보 -->
+                        <tr>
+                            <th scope="row" colspan="4"> <strong style="color:#000;font-size:13px;"><i class="icon-docs"></i> 상품 및 납입 정보</strong></th>
+                        </tr>                          
+                        <tr>
+                            <th scope="row" class="table-primary"> <alert_note>*</alert_note>브랜드/상품명</th>
+                            <td>
+                                <select name="brandCd" class="form-control ib_w250 srchBrandCd">
+                                    <option value="">선택</option>
+                                    {{#brandList}}
+										<option value="{{brandCd}}">{{brandName}}</option>
+									{{/brandList}}
+                                </select>     
+                                <select name="pdtCd" id="pdtCd" class="form-control ib_w250 srchPdtCd">
+                                    <option value="">선택</option>
+                                </select>     
+                                <button type="button" class="btn btn-primary btn_question" data-toggle="modal" data-target="#brandProductInfo-BP-UAPAT79">?</button>                                
+                            </td>
+                            <th scope="row" class="table-primary"><alert_note>*</alert_note>상품금액</th>
+                            <td>
+                                <input class="form-control ib_w250" type="text" name="strPdtUnitPrice" value="" readonly="readonly" placeholder="" > 원 
+                                <i class="nt">(※ 상품 선택 시 작동입력)</i> 
+                            </td>
+                        </tr>
+ 
+                        <tr>
+                            <th scope="row" class="table-primary"> <alert_note>*</alert_note>상품납입기간</th>
+                            <td>
+                                <span class="pr_20">
+                                    <label class="radio-inline mr-3"><input type="radio" name="pay_type_cd" value="1" /> 일시납</label>
+                                    <label class="radio-inline mr-3"><input type="radio" name="pay_type_cd" value="2" /> <span class="payTypeCdMonth">월납(N회)</span></label>
+                                </span>   
+                            </td>
+                            <th scope="row" class="table-primary mpayamountYN"><alert_note>*</alert_note>월납입액</th>
+                            <td class="mpayamountYN">
+                                <input class="form-control ib_w250" type="text" name="strMonthPayAmount" value="" readonly="readonly" placeholder="" > 원 
+                                <i class="nt">(※ 납입기간 선택 시 작동입력)</i> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="table-primary"> <alert_note>*</alert_note>할인횟수</th>
+                            <td>
+                                <select name="discountTimes" id="discountTimes" class="form-control ib_w250">
+                                    <option value="">선택</option>
+                                </select>     
+                                회   
+                            </td>
+                            <th scope="row" class="table-primary payTimesYN"><alert_note>*</alert_note>가입납입기간</th>
+                            <td class="payTimesYN">
+                                <input class="form-control ib_w250" type="text" name="payTimes" value="" readonly="readonly" placeholder="" > 회 
+                                <i class="nt">(※ 할인횟수 선택 시 작동입력)</i> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="table-primary"> <alert_note>*</alert_note>가입금액</th>
+                            <td>
+                                <input class="form-control ib_w250" type="text"  name="totalPayAmount" value="" readonly="readonly" placeholder="" >
+                                원   
+                                <i class="nt">(※ 할인횟수 선택 시 자동입력)</i> 
+                            </td>
+                            <th scope="row" class="table-primary"><alert_note>*</alert_note>구좌수</th>
+                            <td>
+                                <select class="form-control ib_w250">
+                                    <option value="">선택</option>
+									{{#accCntList}}
+										<option value="{{codeName}}"  >{{codeName}}</option>
+									{{/accCntList}}
+                                </select>     
+                                구좌
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="table-primary"> <alert_note>*</alert_note>납입방법</th>
+                            <td colspan="3">
+                                <span class="pr_20">
+                                    <label class="radio-inline mr-3"><input type="radio" name="pay_type_cd" value="1" checked="checked" /> 은행자동이체</label>
+                                    <label class="radio-inline mr-3"><input type="radio" name="pay_type_cd" value="2" disabled="disabled" /> 카드</label>
+                                </span>   
+                                <button type="button" class="btn mb-1 btn-outline-primary btn-sm accountCertify" data-toggle="modal" data-target="#accountCert">계좌인증</button>                       
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="table-primary"> <alert_note>*</alert_note>자동이체 은행명</th>
+                            <td>
+                                <select class="form-control ib_w250">
+                                    <option selected>선택</option>
+                                    <option></option>
+                                    <option></option>
+                                </select>     
+                                회   
+                            </td>
+                            <th scope="row" class="table-primary"><alert_note>*</alert_note>계좌번호</th>
+                            <td>
+                                <input class="form-control ib_w250" type="text" placeholder="" >
+                                <i class="nt">(※ 숫자만, 특수기호 입력불가)</i> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="table-primary"> <alert_note>*</alert_note>이체일자</th>
+                            <td>
+                                <select class="form-control ib_w250">
+                                    <option selected>선택</option>
+                                    <option></option>
+                                    <option></option>
+                                </select>     
+                            </td>
+                            <th scope="row" class="table-primary"><alert_note>*</alert_note>초회납 개시일</th>
+                            <td>
+                                <select class="form-control ib_w100">
+                                    <option selected>2022년</option>
+                                    <option>2021년</option>
+                                    <option>2020년</option>
+                                </select>   
+                                <select class="form-control ib_w100">
+                                    <option selected>6월</option>
+                                    <option>5월</option>
+                                    <option>4월</option>
+                                </select>   
+                                <select class="form-control ib_w100">
+                                    <option selected>30일</option>
+                                    <option>31일</option>
+                                    <option>1일</option>
+                                </select>   
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="table-primary"> <alert_note>*</alert_note>예금주</th>
+                            <td>
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input" value="">본인</label>
+                                </div>
+                                <input class="form-control ib_w150" type="text" placeholder="" >
+                            </td>
+                            <th scope="row" class="table-primary"><alert_note>*</alert_note>예금주 관계</th>
+                            <td>
+                                <select class="form-control ib_w100">
+                                    <option selected>30일</option>
+                                    <option>31일</option>
+                                    <option>1일</option>
+                                </select>   
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="table-primary"> <alert_note>*</alert_note>예금주 생년월일</th>
+                            <td>
+                                <input class="form-control ib_w150" type="text" placeholder="" >
+                                <i class="nt">예 19900101</i>
+                            </td>
+                            <th scope="row" class="table-primary"><alert_note>*</alert_note>예금주 연락처</th>
+                            <td>
+                                <select class="form-control ib_w100">
+                                    <option selected>010</option>
+                                    <option>02</option>
+                                    <option>031</option>
+                                </select>     
+                                <input class="form-control ib_w250" type="text" placeholder="" >
+                            </td>
+                        </tr>
+
+                        <!-- 펫 정보 1 -->
+                        <tr>
+                            <th scope="row" colspan="4"> <strong style="color:#000;font-size:13px;"><i class="icon-badge"></i> 펫 정보 _1</strong></th>
+                        </tr>  
+                        <tr>
+                            <th scope="row" class="table-primary"> 삼성화재보험 가입</th>
+                            <td colspan="3">
+                                <span class="pr_20">
+                                    <label class="radio-inline mr-3"><input type="radio" name="how_to_get" value="" /> 미가입</label>
+                                    <label class="radio-inline mr-3"><input type="radio" name="how_to_get" value="" /> 가입</label>
+                                </span>   
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="table-primary"> 펫 이름</th>
+                            <td>
+                                <input class="form-control ib_w250" type="text" placeholder="" >
+                            </td>
+                            <th scope="row" class="table-primary"> 펫 종류/품종</th>
+                            <td>
+                                <select class="form-control ib_w250">
+                                    <option selected>선택</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                </select>     
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="table-primary"> 펫 생년월일</th>
+                            <td>
+                                <input class="form-control ib_w250" type="text" placeholder="숫자 8자리 입력" >
+                                <i class="nt">※ 예) 19900101</i>
+                            </td>
+                            <th scope="row" class="table-primary"> 펫 종류/품종</th>
+                            <td>
+                                <span class="pr_20">
+                                    <label class="radio-inline mr-3"><input type="radio" name="" value="" /> 남아</label>
+                                    <label class="radio-inline mr-3"><input type="radio" name="" value="" /> 여아</label>
+                                </span>     
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="table-primary"> 펫 등록번호</th>
+                            <td>
+                                <input class="form-control ib_w250" type="text" placeholder="숫자 15자리 입력" >
+                            </td>
+                            <th scope="row" class="table-primary"> 보험개시일</th>
+                            <td>
+                                계약일 기준 익월 15일
+                            </td>
+                        </tr>
+                </table>         
+          
+                <div class="table_bottom">        
+                    <div class="btn_area center">
+                        <button type="button" class="btn btn-primary">저장하기</button>
+                    </div>         
+                    <div class="btn_area right">
+                        <button type="button" class="btn btn-dark">목록</button>
+                    </div>         
+                </div>
+            </div>
+            <!-- #/ container -->
+			</form>
+			<!-- form end -->
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+    </div>
+    
+    
+    <!-- Modal start 브랜드/상품명 설명 팝업  -->
+    <div class="modal fade pdtInfo" id="brandProductInfo-BP-UAPAT79" style="display:none;" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title pdtName"></h5>
+                    <button type="button" class="close" data-dismiss="modal"><span>×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="bproduct_info">
+
+                        <pre class="pdtDescript">
+        
+                        </pre>
+                    </div><!--/bproduct_info-->
+                </div>
+            </div>
+        </div>
+    </div>    
+    <!-- Modal end -->
+    
+
+    <!-- Modal start 계좌인증 팝업 -->
+    <div class="modal fade" id="accountCert" style="display:none;" aria-hidden="true">
+    <!-- form start -->
+    <form name="accountFrm" method="post" action="">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">계좌인증</h5>
+                    <button type="button" class="close" data-dismiss="modal"><span>×</span>
+                    </button>
+                    
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <colgroup>
+                            <col width="40%">
+                            <col >
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th class="table-primary">* 예금주명</th>
+                                <td>
+                                    <div class="form-check form-check-inline">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input" name="popDepRelTypeCd" value="1" checked="checked">본인</label>
+                                    </div>
+                                    <input class="form-control ib_w150" name="popDepositor" maxlength="50" type="text" placeholder="" readonly="readonly">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="table-primary">* 자동이체 은행명</th>
+                                <td>
+                                    <select name="popBankCd" class="form-control ib_w250">
+                                        <option value="">선택</option>
+                                        {{#bankList}}
+											<option value="{{pgBankCd}}/{{wipetBankCd}}">{{bankNm}}</option>
+										{{/bankList}}
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="table-primary">* 계좌번호</th>
+                                <td>
+                                    <input class="form-control ib_w250" name="popAccountNo" vldt_num maxlength="20"  type="text" placeholder="숫자만 입력 가능(최대 20자리)">
+                                </td>
+                            </tr>                            
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                    <button type="button" class="btn btn-warning popAccCert">계좌인증</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!-- form end  -->    
+    </div>    
+    <!-- Modal end -->    
+
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    {{>common/layout/ext/footer}}
+    
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="/js/app/cmn/postcode.js"></script>    
+<script type="text/javascript">
+	var chVal = '{{#channelCd}}{{channelCd}}{{/channelCd}}';
+	var reMrgCdVal = '{{#recruitMgrCd}}{{recruitMgrCd}}{{/recruitMgrCd}}';
+</script>
+<script src="/js/app/contract/contCreate.js"></script>
+<script src="/js/common/basic/contract/validate.js"></script>
